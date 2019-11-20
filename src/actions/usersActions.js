@@ -1,9 +1,9 @@
 import axios from 'axios';
-import {ERROR, GET_USERS, LOADING} from "../types/usersTypes";
+import {ERROR_USERS, GET_USERS, LOADING_USERS} from "../types/usersTypes";
 
 export const getUsers = () => async dispatch => {
     dispatch({
-        type: LOADING
+        type: LOADING_USERS
     });
 
     try {
@@ -15,7 +15,7 @@ export const getUsers = () => async dispatch => {
     } catch (e) {
         console.log(e.message);
         dispatch({
-            type:ERROR,
+            type:ERROR_USERS,
             payload: `Lo sentimos. Ha ocurrido un error de tipo ${e.message}`
         });
     }

@@ -9,7 +9,7 @@ import Table from "./Table";
 class Users extends Component {
 
     componentDidMount() {
-        this.props.getAll();
+        this.props.getUsers();
     }
 
     setContent = () => {

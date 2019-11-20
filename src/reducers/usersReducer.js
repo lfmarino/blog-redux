@@ -1,4 +1,4 @@
-import {ERROR, GET_USERS, LOADING} from "../types/usersTypes";
+import {ERROR_USERS, GET_USERS, LOADING_USERS} from "../types/usersTypes";
 
 const INITIAL_STATE = {
     users: [],
@@ -15,13 +15,13 @@ export default (state = INITIAL_STATE, action) => {
                 loading: false
             };
 
-        case LOADING:
+        case LOADING_USERS:
             return {
                 ...state,
                 loading: true
             };
 
-        case ERROR:
+        case ERROR_USERS:
             return {
                 ...state,
                 error: action.payload,
