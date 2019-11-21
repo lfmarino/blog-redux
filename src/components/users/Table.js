@@ -35,7 +35,7 @@ const Table = props => {
 };
 
 const mapStateToProps = reducers => {
-    return reducers.userReducer;
+    return reducers.usersReducer;
 };
 
 export default connect(mapStateToProps)(Table);

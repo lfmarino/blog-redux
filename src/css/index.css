@@ -37,3 +37,6 @@ body {
   color: red;
 }
 
+.pub_title {
+  border-top: 1px solid black;
+}

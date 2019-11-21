@@ -9,7 +9,8 @@ import Table from "./Table";
 class Users extends Component {
 
     componentDidMount() {
-        this.props.getUsers();
+        if (!this.props.users.length)
+            this.props.getUsers();
     }
 
     setContent = () => {
@@ -37,7 +38,7 @@ class Users extends Component {
 }
 
 const mapStateToProps = reducers => {
-    return reducers.userReducer;
+    return reducers.usersReducer;
 };
 
 export default connect(mapStateToProps, usersActions)(Users);
