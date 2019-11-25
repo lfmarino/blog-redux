@@ -1,4 +1,4 @@
-import {ERROR_POSTS, GET_BY_USER, LOADING_POSTS} from "../types/postsTypes";
+import {ERROR_POSTS, UPDATED, LOADING_POSTS} from "../types/postsTypes";
 
 const INITIAL_STATE = {
     posts: [],
@@ -8,7 +8,7 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case GET_BY_USER:
+        case UPDATED:
             return {
                 ...state,
                 posts: action.payload,

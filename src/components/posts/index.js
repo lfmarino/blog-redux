@@ -5,6 +5,7 @@ import Fatal from "../general/Fatal";
 
 import * as usersActions from '../../actions/usersActions';
 import * as postsActions from '../../actions/postsActions';
+import {openClose} from "../../actions/postsActions";
 
 class Posts extends Component {
     async componentDidMount() {
@@ -73,17 +74,28 @@ class Posts extends Component {
 
         const {posts_key} = users[key];
 
-        return posts[posts_key].map(post => (
-            <div className="pub_title">
+        return this.showInfo(posts[posts_key], posts_key)
+    };
+
+    showInfo = (posts, posts_key) => (
+        posts.map((post, key) => (
+            <div
+                className="pub_title"
+                key={post.id}
+                onClick={() => this.props.openClose(posts_key, key)}
+            >
                 <h2>
                     {post.title}
                 </h2>
                 <p>
                     {post.body}
                 </p>
+                <p>
+                    {(post.opened) ? 'opened' : 'closed'}
+                </p>
             </div>
         ))
-    };
+    );
 
     render() {
         console.log(this.props);
@@ -105,7 +117,8 @@ const mapStateToProps = ({usersReducer, postsReducer}) => {
 
 const mapDispatchToProps = {
     ...usersActions,
-    ...postsActions
+    ...postsActions,
+    ...openClose
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Posts);
