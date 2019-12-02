@@ -1,9 +1,18 @@
-import {ERROR_POSTS, UPDATED, LOADING_POSTS} from "../types/postsTypes";
+import {
+    ERROR_POSTS,
+    UPDATED,
+    LOADING_POSTS,
+    LOADING_COMMENTS,
+    ERROR_COMMENTS,
+    UPDATED_COMMENTS
+} from "../types/postsTypes";
 
 const INITIAL_STATE = {
     posts: [],
     loading: false,
-    error: ''
+    error: '',
+    loading_comment: false,
+    error_comment: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -26,6 +35,26 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 error: action.payload,
                 loading: false
+            };
+
+        case UPDATED_COMMENTS:
+            return {
+                ...state,
+                posts: action.payload,
+                loading_comment: false
+            };
+
+        case LOADING_COMMENTS:
+            return {
+                ...state,
+                loading_comment: true
+            };
+
+        case ERROR_COMMENTS:
+            return {
+                ...state,
+                error_comment: action.payload,
+                loading_comment: false
             };
 
         default:

@@ -1,5 +1,12 @@
 import axios from 'axios';
-import {ERROR_POSTS, UPDATED, LOADING_POSTS} from "../types/postsTypes";
+import {
+    ERROR_POSTS,
+    UPDATED,
+    LOADING_POSTS,
+    LOADING_COMMENTS,
+    UPDATED_COMMENTS,
+    ERROR_COMMENTS
+} from "../types/postsTypes";
 import * as usersTypes from '../types/usersTypes';
 
 const {GET_USERS} = usersTypes;
@@ -58,8 +65,8 @@ export const getPostsByUser = key => async (dispatch, getState) => {
 
 };
 
-export const openClose = (posts_key, key) => (dispatch,getState) => {
-    const {posts} =getState().postsReducer;
+export const openClose = (posts_key, key) => (dispatch, getState) => {
+    const {posts} = getState().postsReducer;
     const selected = posts[posts_key][key];
 
     const updated = {
@@ -75,7 +82,42 @@ export const openClose = (posts_key, key) => (dispatch,getState) => {
     posts_updated[posts_key][key] = updated;
 
     dispatch({
-        type: UPDATED,
+        type: UPDATED_COMMENTS,
         payload: posts_updated
     });
+};
+
+export const getComments = (posts_key, key) => async (dispatch, getState) => {
+    dispatch({
+        type: LOADING_COMMENTS
+    });
+
+    const {posts} = getState().postsReducer;
+    const selected = posts[posts_key][key];
+
+    try {
+        const response = await axios.get(`https://jsonplaceholder.typicode.com/comments?postId=${selected.id}`);
+
+        const updated = {
+            ...selected,
+            comments: response.data
+        };
+
+        const posts_updated = [...posts];
+        posts_updated[posts_key] = [
+            ...posts[posts_key]
+        ];
+
+        posts_updated[posts_key][key] = updated;
+
+        dispatch({
+            type: UPDATED_COMMENTS,
+            payload: posts_updated
+        });
+    } catch (e) {
+        dispatch({
+            type: ERROR_COMMENTS,
+            payload: e.message
+        })
+    }
 };
